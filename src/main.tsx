@@ -73,6 +73,7 @@ const strengths = [
 
 function App() {
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const [isNavHidden, setIsNavHidden] = React.useState(false);
 
   useEffect(() => {
     const video = heroVideoRef.current;
@@ -164,6 +165,29 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const updateNav = () => {
+      const currentY = window.scrollY;
+      const isScrollingDown = currentY > lastY;
+      setIsNavHidden(isScrollingDown && currentY > 120);
+      lastY = currentY;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateNav);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <main>
       <section className="hero" id="home">
@@ -171,7 +195,7 @@ function App() {
         <div className="heroFallback" />
         <div className="grain" />
 
-        <nav className="nav">
+        <nav className={`nav${isNavHidden ? " navHidden" : ""}`}>
           <a className="brand" href="#home" aria-label="Helen portfolio home">
             Helen
           </a>
