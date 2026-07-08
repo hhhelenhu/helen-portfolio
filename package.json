@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
+    "build:pages": "GITHUB_PAGES=true GITHUB_REPOSITORY=hku-h3632565/helen-portfolio vite build --outDir docs",
     "preview": "vite preview --host 127.0.0.1"
   },
   "dependencies": {
