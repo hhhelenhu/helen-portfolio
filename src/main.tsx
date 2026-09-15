@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import "./styles.css";
 
+const assetPath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+
 const metrics = [
   { value: "50GB+", label: "tick-data pipeline" },
   { value: "2", label: "systematic strategies back-tested" },
@@ -191,7 +193,15 @@ function App() {
   return (
     <main>
       <section className="hero" id="home">
-        <video ref={heroVideoRef} className="heroVideo" autoPlay muted loop playsInline poster="/hero-poster.png" />
+        <video
+          ref={heroVideoRef}
+          className="heroVideo"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={assetPath("hero-poster.png")}
+        />
         <div className="heroFallback" />
         <div className="grain" />
 
@@ -235,7 +245,7 @@ function App() {
       <section className="section profile" id="profile">
         <div className="sectionShell profileGrid">
           <div className="portraitPanel">
-            <img src="/helen-portrait.png" alt="Portrait of Menghan Hu" />
+            <img src={assetPath("helen-portrait.png")} alt="Portrait of Menghan Hu" />
             <div className="portraitCaption">
               <span>Hong Kong, China</span>
               <span>DASE · Finance · Systems</span>
